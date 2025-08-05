@@ -1,3 +1,4 @@
+import { Check } from 'lucide-react'
 import { ChevronRight } from 'lucide-react'
 
 export default function Tasks(props) {
@@ -7,7 +8,8 @@ export default function Tasks(props) {
         <li className="flex items-center gap-4" key={task.id}>
           <button
             onClick={() => props.onTaskClick(task.id)}
-            className={`w-full flex items-center justify-between bg-zinc-600 text-white py-2 px-3 rounded-md cursor-pointer ${task.isCompleted && "line-through"}`}>
+            className={`w-full flex items-center gap-2 bg-zinc-600 text-white py-2 px-3 rounded-md cursor-pointer ${task.isCompleted && "line-through"}`}>
+            {task.isCompleted && <Check />}
             {task.title}
           </button>
           <button className="whitespace-nowrap bg-zinc-600 text-white py-2 px-3 rounded-md cursor-pointer" >
