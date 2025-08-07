@@ -1,28 +1,49 @@
 import { ChevronRight, Trash, Check } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-export default function Tasks({tasks, onTaskClick, onDeleteTaskClick}) {
+export default function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
+  const navigate = useNavigate()
+
+  function onSeeDetailsClick(task) {
+    const query = new URLSearchParams()
+    query.set('title', task.title)
+    query.set('description', task.description)
+
+    navigate(`/task?${query.toString()}`)
+  }
+
+  function onTaskCompleted(task) {
+    onTaskClick(task.id)
+    !task.isCompleted ? toast.success('Tarefa concluída com sucesso!') : toast.info('Tarefa retornada para "Pendente".')
+  }
+
+  function onTaskDelete(task) {
+    onDeleteTaskClick(task.id)
+    toast.success('Tarefa excluída com sucesso!')
+  }
+
   return (
     <ul className="space-y-3 p-6 bg-zinc-700 rounded-lg shadow">
       {tasks.map((task) => (
         <li className="flex items-center gap-3" key={task.id}>
           <button
-            onClick={() => {
-              onTaskClick(task.id)
-              !task.isCompleted ? toast.success('Tarefa concluída com sucesso!') : toast.info('Tarefa retornada para "Pendente".')
-            }}
-            className={`w-full flex items-center gap-2 bg-zinc-600 text-white py-2 px-3 rounded-md cursor-pointer ${task.isCompleted && "line-through"}`}>
+            onClick={() => onTaskCompleted(task)}
+            className={`w-full flex items-center gap-2 bg-zinc-600 text-white py-2 px-3 rounded-md cursor-pointer transition-all active:scale-[.97] ${task.isCompleted && "line-through"}`}>
             {task.isCompleted && <Check />}
             {task.title}
           </button>
-          <button className="whitespace-nowrap bg-zinc-600 text-white py-2 px-3 rounded-md cursor-pointer" >
+          <button className="whitespace-nowrap bg-zinc-600 text-purple-400 py-2 px-3 rounded-md cursor-pointer transition-all active:scale-[.97]" onClick={() => onSeeDetailsClick(task)}>
             <ChevronRight />
           </button>
-          <button className="whitespace-nowrap bg-zinc-600 text-white py-2 px-3 rounded-md cursor-pointer" onClick={() => onDeleteTaskClick(task.id) }>
+          <button className="whitespace-nowrap bg-zinc-600 text-red-400 py-2 px-3 rounded-md cursor-pointer transition-all active:scale-[.97]" onClick={() => onTaskDelete(task)}
+          >
             <Trash />
           </button>
         </li>
       ))}
+      
+      {tasks.length === 0 && <li className="opacity-60 text-center">Nenhuma tarefa registrada.</li>}
     </ul>
   )
 }
