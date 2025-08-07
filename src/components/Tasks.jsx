@@ -33,7 +33,7 @@ export default function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
           </button>
           <button
             className={`flex items-center gap-2 w-full overflow-hidden text-sm md:text-base text-start bg-zinc-600 text-white py-2 px-3 rounded-md ${task.isCompleted && "line-through"} min-h-10`}>
-            <span className="block text-ellipsis whitespace-nowrap overflow-hidden">{task.title}</span>
+            <span className="block text-ellipsis whitespace-nowrap overflow-hidden tracking-tight">{task.title}</span>
           </button>
           <button className="flex items-center bg-purple-400/15 text-purple-400 py-2 px-3 rounded-md cursor-pointer transition-all active:scale-[.97] flex-none min-h-10" onClick={() => onSeeDetailsClick(task)}>
             <ChevronRight />
