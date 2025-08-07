@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { toast } from 'react-toastify'
 
 export default function AddTask({ onAddTaskSubmit }) {
   const [title, setTitle] = useState('')
@@ -20,11 +21,23 @@ export default function AddTask({ onAddTaskSubmit }) {
         onChange={(event) => setDescription(event.target.value)}
       />
       <button
-        className="bg-zinc-900 py-2 px-3 rounded-md font-semibold cursor-pointer transition-all active:scale-[.97]"
+        className="bg-purple-600 py-2 px-3 rounded-md font-semibold cursor-pointer transition-all active:scale-[.97]"
         onClick={() => {
-          onAddTaskSubmit(title, description)
-          setTitle('')
-          setDescription('')
+          const notTitle = !title.trim()
+          const notDescription = !description.trim()
+
+          if (notTitle && notDescription) {
+            toast.error('Preencha o título e a descrição da tarefa.')
+          } else if (notTitle) { 
+            toast.error('Preencha o título da tarefa.')
+          } else if (notDescription) {
+            toast.error('Preencha a descrição da tarefa.')
+          } else {
+            onAddTaskSubmit(title, description)
+            setTitle('')
+            setDescription('')
+            toast.success('Tarefa criada com sucesso!')
+          }
         }}
       >
         Adicionar Tarefa
