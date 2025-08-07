@@ -39,7 +39,7 @@ function App() {
   }
 
   return (
-    <div className="w-full min-h-screen flex justify-center p-6 bg-zinc-800 text-white">
+    <div className="w-full min-h-screen flex justify-center p-4 md:p-6 bg-zinc-800 text-white">
       <div className="max-w-[500px] w-full flex flex-col gap-8">
         <h1 className="text-3xl text-zinc-100 font-bold text-center">Gerenciador de Tarefas</h1>
         <AddTask onAddTaskSubmit={onAddTaskSubmit} />

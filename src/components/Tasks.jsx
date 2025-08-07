@@ -1,4 +1,4 @@
-import { ChevronRight, Trash, Check } from 'lucide-react'
+import { ChevronRight, Trash, SquareCheck, Square } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -24,19 +24,21 @@ export default function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
   }
 
   return (
-    <ul className="flex flex-col gap-3 p-6 bg-zinc-700 rounded-lg shadow">
+    <ul className="flex flex-col gap-3 p-3 md:p-6 bg-zinc-700 rounded-lg shadow">
       {tasks.map((task) => (
-        <li className="flex items-center gap-3" key={task.id}>
-          <button
-            onClick={() => onTaskCompleted(task)}
-            className={`block text-sm md:text-base text-start bg-zinc-600 text-white py-2 px-3 rounded-md cursor-pointer transition-all active:scale-[.97] ${task.isCompleted && "line-through"} text-ellipsis overflow-hidden whitespace-nowrap grow min-h-10`}>
-            {task.isCompleted && <Check />}
-            {task.title}
+        <li className="grid grid-cols-[24px_1fr_40px_40px] items-center gap-3" key={task.id}>
+          <button onClick={() => onTaskCompleted(task)} className="cursor-pointer">
+            {!task.isCompleted && <Square />}
+            {task.isCompleted && <SquareCheck />}
           </button>
-          <button className="whitespace-nowrap bg-zinc-600 text-purple-400 py-2 px-3 rounded-md cursor-pointer transition-all active:scale-[.97] flex-none min-h-10" onClick={() => onSeeDetailsClick(task)}>
+          <button
+            className={`flex items-center gap-2 w-full overflow-hidden text-sm md:text-base text-start bg-zinc-600 text-white py-2 px-3 rounded-md ${task.isCompleted && "line-through"} min-h-10`}>
+            <span className="block text-ellipsis whitespace-nowrap overflow-hidden">{task.title}</span>
+          </button>
+          <button className="flex items-center bg-purple-400/15 text-purple-400 py-2 px-3 rounded-md cursor-pointer transition-all active:scale-[.97] flex-none min-h-10" onClick={() => onSeeDetailsClick(task)}>
             <ChevronRight />
           </button>
-          <button className="whitespace-nowrap bg-zinc-600 text-red-400 py-2 px-3 rounded-md cursor-pointer transition-all active:scale-[.97] flex-none min-h-10" onClick={() => onTaskDelete(task)}
+          <button className="flex items-center bg-red-300/15 text-red-300 py-2 px-3 rounded-md cursor-pointer transition-all active:scale-[.97] flex-none min-h-10" onClick={() => onTaskDelete(task)}
           >
             <Trash />
           </button>

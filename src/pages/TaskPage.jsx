@@ -8,7 +8,7 @@ export default function TaskPage() {
   const navigate = useNavigate()
 
   return (
-    <div className="w-full min-h-screen flex justify-center p-6 bg-zinc-800 text-white">
+    <div className="w-full min-h-screen flex justify-center p-4 md:p-6 bg-zinc-800 text-white">
       <div className="w-[500px] flex flex-col gap-8">
         <div className="grid grid-cols-3 items-center">
           <button className="cursor-pointer" onClick={() => navigate(-1)}>
@@ -21,7 +21,7 @@ export default function TaskPage() {
 
         <div className="w-full h-[1px] bg-zinc-700"></div>
 
-        <div className="flex flex-col gap-6 p-6 bg-zinc-700 rounded-lg">
+        <div className="flex flex-col gap-6 p-4 md:p-6 bg-zinc-700 rounded-lg">
           <h2 className="text-2xl text-zinc-100 font-bold text-center">{title}</h2>
           <p className="opacity-60">{description}</p>
         </div>
